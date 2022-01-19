@@ -114,7 +114,7 @@ var tpl = {
 };
 document.addEventListener('DOMContentLoaded', function () {
   var map = [1, 2, 3, 4, 5, 6, 7, 8];
-  var install = new Flop('.flop-container', {
+  var eli = new Flop('.flop-container', {
     list: map.concat(map),
     duration: 500,
     onBefore: function () {},
@@ -133,11 +133,18 @@ document.addEventListener('DOMContentLoaded', function () {
     },
   });
   $('.flop-container').on('click', '.item', function (e) {
+    if (!eli.playing) return;
     e.stopPropagation();
-    install.click($(this).index());
+    eli.click($(this).index());
   });
-  install.start();
-  console.log('Flop install ', install);
+  $('.start').on('click', function () {
+    eli.start();
+    console.log('Flop install ', eli);
+  });
+  $('.reset').on('click', function () {
+    eli.reset();
+    console.log('reset Flop install ', eli);
+  });
 });
 ```
 

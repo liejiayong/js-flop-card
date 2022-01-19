@@ -15,7 +15,69 @@
         <div class="front"></div>
         <div class="back"></div>
       </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
     </div>
+    <button class="start">开始游戏</button>
+    <button class="reset">重置</button>
     <script>
       var tpl = {
         format: function (str, data) {
@@ -51,11 +113,18 @@
           },
         });
         $('.flop-container').on('click', '.item', function (e) {
+          if (!eli.playing) return;
           e.stopPropagation();
           eli.click($(this).index());
         });
-        eli.start();
-        console.log('Flop install ', eli);
+        $('.start').on('click', function () {
+          eli.start();
+          console.log('Flop install ', eli);
+        });
+        $('.reset').on('click', function () {
+          eli.reset();
+          console.log('reset Flop install ', eli);
+        });
       });
     </script>
   </body>

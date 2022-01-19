@@ -30,7 +30,7 @@ function isFunction(value) {
 
 class Flop {
   constructor(element = null /* 挂载元素 */, options = {}) {
-    // this.playing = false; /* 正在游戏标识 */
+    this.playing = false; /* 正在游戏标识 */
     this.selected = null; /* 已选卡片。Object */
     this.list = this._resetList(options.list);
     this.options = this._extend(options, Flop.options);
@@ -47,17 +47,18 @@ class Flop {
     this.reset();
 
     /* 后期可考虑添加游戏倒计时 */
-    // this.playing = true;
+    this.playing = true;
   }
   reset() {
-    const { onDOMRender } = this.options;
+    this.playing = false;
+    this.selected = null;
 
+    const { onDOMRender } = this.options;
     if (!isFunction(onDOMRender)) {
       const err = new Error('the parameter of turn must be function');
       throw err;
     }
-
-    this._resetList();
+    this.list = this._resetList();
     onDOMRender(this);
   }
   click(index, callback) {
@@ -120,9 +121,10 @@ class Flop {
     }, 0);
     if (total === this.list.length && isFunction(this.options.onFinished)) {
       this.options.onFinished(this);
+      this.playing = false;
     }
   }
-  _resetList(list = Flop.options.list) {
+  _resetList(list = this.options.list) {
     list = shuffle(list);
     return list.map(function (val, i) {
       return {
