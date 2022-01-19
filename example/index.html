@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flop 卡牌消除游戏</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="../tool/jquery.min.js"></script>
+    <script src="../dist/flop.umd.js"></script>
+  </head>
+  <body>
+    <div class="flop-container">
+      <div class="item flop-item">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <script>
+      var tpl = {
+        format: function (str, data) {
+          return str.replace(/\{#(\w+)#\}/g, function (match, key) {
+            return typeof data[key] === undefined ? '' : data[key];
+          });
+        },
+        tmp: [
+          '<div class="item flop-item">',
+          '<div class="front"></div>',
+          '<div class="back">{#type#}</div>',
+          '</div>',
+        ],
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        var map = [1, 2, 3, 4, 5, 6, 7, 8];
+        var eli = new Flop('.flop-container', {
+          list: map.concat(map),
+          duration: 500,
+          onBefore: function () {},
+          onDOMRender: function (install) {
+            var tmp = tpl.tmp.join(''),
+              list = install.list,
+              str = '';
+            list.forEach(function (val) {
+              str += tpl.format(tmp, { type: val.type });
+            });
+
+            $('.flop-container').html(str);
+          },
+          onFinished: function (install) {
+            console.log('游戏结束', install);
+          },
+        });
+        $('.flop-container').on('click', '.item', function (e) {
+          e.stopPropagation();
+          eli.click($(this).index());
+        });
+        eli.start();
+        console.log('Flop install ', eli);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+.flop-container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
+  height: 500px;
+  .item {
+    position: relative;
+    margin: 10px;
+    flex: none;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: transform 0.3s linear;
+    .front {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #ccc;
+      background: #ccc;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: orangered;
+      z-index: 1;
+      pointer-events: none;
+      transform: rotateY(180deg);
+    }
+    &.active {
+      transform: rotateY(180deg);
+      .front {
+        z-index: 0;
+      }
+    }
+  }
+}
